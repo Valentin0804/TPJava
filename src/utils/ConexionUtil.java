@@ -10,13 +10,14 @@ public class ConexionUtil {
     private static final String USUARIO = "root";
     private static final String CONTRASEÑA = "root";
 
-    public static Connection obtenerConexion() {
-        Connection conexion = null;
+    public static Connection getConexion() throws SQLException {
         try {
-            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
-        } catch (SQLException e) {
-            System.out.println("❌ Error al conectar con la base de datos: " + e.getMessage());
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("No se encontró el driver de MySQL.");
+            e.printStackTrace();
         }
-        return conexion;
+
+        return DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
     }
 }
